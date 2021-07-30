@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
     login({dispatch}, authData){
       axios.post(
-        '/accounts:signInWithPassword?key=AIzaSyAKFXcU6FoPh29PZ4NqhcGAWgg8nypO8YU',
+        '/accounts:signInWithPassword?key=[API_KEY]',
         {
           email:authData.email,
           password:authData.password,
@@ -62,7 +62,7 @@ export default new Vuex.Store({
       router.replace('/login');
     },
     async refreshIdToken({dispatch}, refreshToken){
-      await axiosRefresh.post('/token?key=AIzaSyAKFXcU6FoPh29PZ4NqhcGAWgg8nypO8YU',
+      await axiosRefresh.post('/token?key=[API_KEY]',
         {
           grant_type: 'refresh_token',
           refresh_token: refreshToken,
@@ -72,15 +72,11 @@ export default new Vuex.Store({
             expiresIn: response.data.expiresIn,
             refreshToken: response.data.refreshToken
           });
-            // commit('updateToken', response.data.id_token);
-            // setTimeout(()=>{
-            //   dispatch('refreshIdToken', response.data.refresh_token);
-            // },response.data.expire_in * 1000);
         });     
     },
     register({dispatch}, authData){
       axios.post(
-        '/accounts:signUp?key=AIzaSyAKFXcU6FoPh29PZ4NqhcGAWgg8nypO8YU',
+        '/accounts:signUp?key=[API_KEY]',
         {
           email:authData.email,
           password:authData.password,
@@ -91,7 +87,6 @@ export default new Vuex.Store({
             expiresIn: response.data.expiresIn,
             refreshToken: response.data.refreshToken
           });          
-          // commit('updateToken', response.data.idToken);
           console.log(response);
           router.push('/');
         });
@@ -103,7 +98,6 @@ export default new Vuex.Store({
           localStorage.setItem('idToken', authData.idToken);
           localStorage.setItem('expiryTimeMs', expiryTimeMs);
           localStorage.setItem('refreshToken', authData.refreshToken);
-          //console.log(response);
           setTimeout(() =>{
             dispatch('refreshIdToken', authData.refresh_token);
           }, authData.expiresIn * 1000);

@@ -6,9 +6,7 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "https://firestore.googleapis.com/v1/projects/vuejs-axios-d1ebd/databases/(default)/documents";
-//axios.defaults.headers.common["Authorization"]="adjiyuioghjkl;"
-//axios.defaults.headers.get["accept"]="application/json;"
+axios.defaults.baseURL = "https://firestore.googleapis.com/v1/projects/YOUR_PROJECT_ID/databases/(default)/documents";
 
 store.dispatch('autoLogin').then(()=>{
   new Vue({
